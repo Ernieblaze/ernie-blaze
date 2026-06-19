@@ -85,8 +85,9 @@ body::before {
 }
 
 .blaze-text {
-  background-image: linear-gradient(100deg, var(--emerald) 10%, #ff7a1a 90%);
-  animation: blaze-glow 3.6s ease-in-out infinite;
+  background-image: linear-gradient(100deg, var(--emerald) 10%, #ff7a1a 60%, var(--emerald) 110%);
+  background-size: 220% 100%;
+  animation: blaze-glow 3.6s ease-in-out infinite, blaze-shimmer 7s linear infinite;
 }
 
 @keyframes blaze-glow {
@@ -98,17 +99,76 @@ body::before {
   }
 }
 
-.ember-spark {
-  animation: ember-drift 3.2s ease-in-out infinite;
+@keyframes blaze-shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 220% 0%;
+  }
 }
 
-@keyframes ember-drift {
+.ember-spark {
+  animation: ember-rise 3.4s ease-in infinite;
+}
+
+@keyframes ember-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2px) scale(0.7);
+  }
+  15% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(1px, -10px) scale(1.05);
+  }
+}
+
+@keyframes card-float {
   0%, 100% {
-    opacity: 0.2;
-    transform: translate(0, 0) scale(0.8);
+    transform: translateY(0);
   }
   50% {
-    opacity: 0.9;
-    transform: translate(2px, -4px) scale(1.1);
+    transform: translateY(-6px);
+  }
+}
+
+.animate-card-float {
+  animation: card-float 4.5s ease-in-out infinite;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  .animate-blob {
+    animation-duration: 24s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-marquee,
+  .animate-card-float,
+  .ember-spark {
+    animation: none !important;
+  }
+
+  .blaze-text {
+    animation: none !important;
+    background-position: 0% 0%;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
   }
 }

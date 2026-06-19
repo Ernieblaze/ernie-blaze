@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, PlayCircle } from "lucide-react";
+import { Search } from "lucide-react";
 import Reveal from "./Reveal";
+import VideoCard from "./VideoCard";
 import { siteConfig } from "@/lib/config";
 
 export default function Content() {
@@ -26,7 +27,7 @@ export default function Content() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-2.5 text-xs sm:text-sm font-medium transition-colors min-h-11 ${
                 category === cat
                   ? "bg-emerald text-white"
                   : "bg-white/5 text-white/60 hover:bg-white/10"
@@ -42,7 +43,7 @@ export default function Content() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search videos"
-            className="w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-emerald"
+            className="w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-emerald"
           />
         </div>
       </div>
@@ -50,16 +51,8 @@ export default function Content() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {filtered.map((video, i) => (
           <Reveal key={video.title} delay={i * 80}>
-            <a
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-emerald/40"
-            >
-              <div className="flex h-36 items-center justify-center bg-white/[0.04] text-white/20">
-                {/* TODO: replace with real thumbnail at video.thumbnail */}
-                <PlayCircle className="h-10 w-10 transition-colors group-hover:text-emerald" strokeWidth={1.25} />
-              </div>
+            <div className="group rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-emerald/40 hover:shadow-[0_20px_40px_-16px_rgba(16,185,129,0.3)]">
+              <VideoCard videoId={video.videoId} variant="dark" bordered={false} hoverLift={false} />
               <div className="p-4">
                 <p className="font-mono-label text-[10px] text-emerald mb-1.5">
                   {video.category}
@@ -68,7 +61,7 @@ export default function Content() {
                   {video.title}
                 </h4>
               </div>
-            </a>
+            </div>
           </Reveal>
         ))}
         {filtered.length === 0 && (

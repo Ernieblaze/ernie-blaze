@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Button from "./Button";
 import Logo from "./Logo";
+import NavSocialBar from "./NavSocialBar";
 import { siteConfig } from "@/lib/config";
 
 export default function Navbar() {
@@ -45,7 +46,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-4">
+          <NavSocialBar className="pr-3 border-r border-ink/10" />
           <Button href={siteConfig.ctas.joinFree} variant="primary" showArrow={false} className="px-5 py-2.5 text-sm">
             Join Free
           </Button>
@@ -54,7 +56,7 @@ export default function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden flex h-9 w-9 items-center justify-center rounded-full text-ink"
+          className="md:hidden flex h-11 w-11 items-center justify-center rounded-full text-ink"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -69,13 +71,13 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="absolute top-[72px] left-4 right-4 sm:left-6 sm:right-6 rounded-2xl border border-ink/10 bg-white/95 backdrop-blur-xl p-5 shadow-xl md:hidden"
           >
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-1">
               {siteConfig.nav.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-ink/80"
+                  className="flex items-center min-h-11 text-sm font-medium text-ink/80"
                 >
                   {item.label}
                 </a>
@@ -84,10 +86,11 @@ export default function Navbar() {
                 href={siteConfig.ctas.joinFree}
                 variant="primary"
                 showArrow={false}
-                className="mt-2 w-full"
+                className="mt-3 w-full"
               >
                 Join Free
               </Button>
+              <NavSocialBar size="lg" className="justify-center pt-4 mt-1 border-t border-ink/10" />
             </nav>
           </motion.div>
         )}

@@ -19,9 +19,17 @@ export const siteConfig = {
   // Buttons in the hero section — point these at your real funnels.
   ctas: {
     startHere: "#checklist",
-    watchContent: "https://www.youtube.com/@ernieblaze", // TODO: replace with real channel
+    watchContent: "https://www.youtube.com/@ernieblaze",
     joinFree: "#checklist",
   },
+
+  // WhatsApp number (digits only, e.g. "2348012345678") — used to build wa.me
+  // links wherever a WhatsApp button appears. While this stays a "TODO_" value,
+  // every WhatsApp button renders disabled/"coming soon" instead of linking out.
+  whatsapp: "TODO_WHATSAPP_NUMBER",
+
+  // Contact email — shown in the footer.
+  email: "ernieblazze@gmail.com",
 
   // Hero portrait photo — used with next/image. Falls back to an "EB" placeholder if missing.
   heroImage: "/ernie.png", // TODO: replace with a real portrait photo of Ernie Blaze
@@ -42,15 +50,17 @@ export const siteConfig = {
     ],
   },
 
-  // Social links bar — leave a handle as "#" to hide that icon... (not auto-hidden, just edit url)
+  // Social links — WhatsApp lives at the top-level `whatsapp` field above
+  // (shared with the footer) so there's one source of truth for that number.
+  // The Facebook icon always links to `facebook` (the main account), not the page.
   socials: {
-    facebook: "https://facebook.com/ernieblaze",
-    instagram: "https://instagram.com/ernieblaze",
-    youtube: "https://youtube.com/@ernieblaze",
-    tiktok: "https://tiktok.com/@ernieblaze",
-    whatsapp: "https://wa.me/2340000000000", // TODO: replace with real WhatsApp number
-    telegram: "https://t.me/ernieblaze",
-    x: "https://x.com/ernieblaze",
+    twitter: "https://x.com/ernieblazze",
+    instagram: "https://www.instagram.com/ernieblazze",
+    tiktok: "https://www.tiktok.com/@ernieblazze",
+    facebook: "https://www.facebook.com/share/1HmrXLKDbL/",
+    facebookPage: "https://www.facebook.com/share/17o5SvK71z/", // kept for later use, not linked yet
+    telegram: "https://t.me/BlazeWealthUpdates",
+    youtubeChannel: "https://www.youtube.com/@ernieblaze",
     threads: "https://www.threads.net/@ernieblaze",
   },
 
@@ -66,27 +76,28 @@ export const siteConfig = {
     },
   ],
 
+  // "Watch My Latest" — YouTube video IDs, shown as click-to-play cards.
+  youtubeVideos: ["b0mzsVJdP7A", "mNI51kfiZW4", "25TrQ-bDdw0"],
+
   // Featured content/videos shown in the dark "Inside My World" band.
+  // videoId pulls the real YouTube thumbnail and powers click-to-play.
   content: {
     categories: ["All", "Crypto & Forex", "Mindset", "Online Income"], // TODO: adjust categories to match real content
     videos: [
       {
         title: "How I Read Forex Charts Like a Pro",
         category: "Crypto & Forex",
-        thumbnail: "/video-1.jpg", // TODO: replace with real video thumbnail
-        url: "https://www.youtube.com/@ernieblaze", // TODO: replace with real video link
+        videoId: "b0mzsVJdP7A",
       },
       {
         title: "From Zero to First $1,000 Online",
         category: "Online Income",
-        thumbnail: "/video-2.jpg", // TODO: replace with real video thumbnail
-        url: "https://www.youtube.com/@ernieblaze", // TODO: replace with real video link
+        videoId: "mNI51kfiZW4",
       },
       {
         title: "The Mindset Shift That Changed Everything",
         category: "Mindset",
-        thumbnail: "/video-3.jpg", // TODO: replace with real video thumbnail
-        url: "https://www.youtube.com/@ernieblaze", // TODO: replace with real video link
+        videoId: "25TrQ-bDdw0",
       },
     ],
   },
@@ -96,8 +107,7 @@ export const siteConfig = {
     headline: "Get the Free Wealth-Building Checklist",
     description:
       "10 steps to start building income online — straight to your inbox.",
-    // TODO: connect this form to Formspree, Mailchimp, or another email provider.
-    formAction: "#",
+    formspreeEndpoint: "TODO_FORMSPREE_ENDPOINT", // TODO: paste your Formspree form endpoint (e.g. https://formspree.io/f/xxxxxxx)
   },
 
   // Support / tip me
@@ -107,21 +117,20 @@ export const siteConfig = {
     tipUrl: "https://example.com/tip", // TODO: replace with real tipping link (e.g. Buy Me a Coffee, Ko-fi)
   },
 
-  // Payment details
+  // Payment details — USDT only, BEP20 (BSC) network.
   payment: {
-    btcAddress: "bc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // TODO: replace with real BTC address
-    qrPlaceholder: "/btc-qr-placeholder.svg", // TODO: replace with a generated QR code image
+    usdtAddress: "0x1853f9d44fe3d6fbad8f88c0b63cef6f8b86882e",
+    usdtNetwork: "BEP20 (BSC)",
+    qrImage: "/usdt-qr.jpg", // TODO: add a generated QR code image for the USDT address
     bank: {
-      accountName: "Ernie Blaze",
-      bankName: "Example Bank Nigeria",
-      accountNumber: "0000000000",
-      swift: "EXAMPLENGXXX",
+      name: "OPay (Business)",
+      account: "6115592347",
+      holder: "FAVOUR GODMERCY ERNEST",
     },
   },
 
   // Footer
   footer: {
-    whatsapp: "https://wa.me/2340000000000", // TODO: replace with real WhatsApp number
     disclaimer:
       "Educational purposes only. Not financial advice. Trading involves risk.",
   },

@@ -72,17 +72,20 @@ export default function Hero() {
           <StatCard
             label={siteConfig.hero.stats[0].label}
             value={siteConfig.hero.stats[0].value}
-            className="absolute -left-6 top-8 hidden sm:block"
+            floatDelay="0s"
+            className="absolute left-1 top-4 sm:-left-6 sm:top-8"
           />
           <StatCard
             label={siteConfig.hero.stats[1].label}
             value={siteConfig.hero.stats[1].value}
-            className="absolute -right-6 top-1/2 -translate-y-1/2"
+            floatDelay="1.5s"
+            className="absolute right-1 top-1/2 -translate-y-1/2 sm:-right-6"
           />
           <StatCard
             label={siteConfig.hero.stats[2].label}
             value={siteConfig.hero.stats[2].value}
-            className="absolute -left-4 bottom-8 hidden sm:block"
+            floatDelay="3s"
+            className="absolute left-1 bottom-4 sm:-left-4 sm:bottom-8"
           />
         </motion.div>
       </div>

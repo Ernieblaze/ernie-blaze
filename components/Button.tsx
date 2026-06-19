@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { isPlaceholder } from "@/lib/links";
 
 type ButtonProps = {
   href: string;
@@ -28,7 +29,6 @@ export default function Button({
       "border border-white/15 text-white bg-white/5 hover:border-emerald hover:text-emerald",
   };
 
-  const isExternal = href.startsWith("http");
   const content = (
     <>
       {children}
@@ -37,6 +37,23 @@ export default function Button({
       )}
     </>
   );
+
+  if (isPlaceholder(href)) {
+    return (
+      <span
+        aria-disabled="true"
+        title="Coming soon"
+        className={`${base} ${variants[variant]} ${className} relative cursor-not-allowed opacity-50 hover:scale-100`}
+      >
+        {content}
+        <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-2.5 py-1 text-[10px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+          Coming soon
+        </span>
+      </span>
+    );
+  }
+
+  const isExternal = href.startsWith("http");
 
   if (isExternal) {
     return (

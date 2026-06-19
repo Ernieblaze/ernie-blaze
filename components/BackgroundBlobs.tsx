@@ -1,14 +1,28 @@
+"use client";
+
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+
 export default function BackgroundBlobs() {
+  const { scrollY } = useScroll();
+  const reduceMotion = useReducedMotion();
+  const range = reduceMotion ? [0, 0] : undefined;
+  const y1 = useTransform(scrollY, [0, 700], range ?? [0, 50]);
+  const y2 = useTransform(scrollY, [0, 700], range ?? [0, -35]);
+  const y3 = useTransform(scrollY, [0, 700], range ?? [0, 30]);
+
   return (
     <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="animate-blob absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald/15 blur-[90px]" />
-      <div
-        className="animate-blob absolute top-10 right-[-60px] h-80 w-80 rounded-full bg-indigo-300/20 blur-[100px]"
-        style={{ animationDelay: "4s" }}
+      <motion.div
+        style={{ y: y1 }}
+        className="animate-blob absolute -top-12 -left-12 h-44 w-44 sm:-top-24 sm:-left-24 sm:h-72 sm:w-72 rounded-full bg-emerald/15 blur-[55px] sm:blur-[90px]"
       />
-      <div
-        className="animate-blob absolute bottom-[-80px] left-1/3 h-64 w-64 rounded-full bg-mint blur-[90px]"
-        style={{ animationDelay: "8s" }}
+      <motion.div
+        style={{ y: y2, animationDelay: "4s" }}
+        className="animate-blob absolute top-6 right-[-30px] h-48 w-48 sm:top-10 sm:right-[-60px] sm:h-80 sm:w-80 rounded-full bg-indigo-300/20 blur-[60px] sm:blur-[100px]"
+      />
+      <motion.div
+        style={{ y: y3, animationDelay: "8s" }}
+        className="animate-blob absolute bottom-[-50px] left-1/3 h-40 w-40 sm:bottom-[-80px] sm:h-64 sm:w-64 rounded-full bg-mint blur-[55px] sm:blur-[90px]"
       />
     </div>
   );

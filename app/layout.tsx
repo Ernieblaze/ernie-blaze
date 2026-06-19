@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Space_Mono, Inter } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -37,7 +38,9 @@ export default function RootLayout({
       className={`${bricolage.variable} ${spaceMono.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink font-body">
-        <div className="relative z-10 flex flex-col flex-1">{children}</div>
+        <MotionConfig reducedMotion="user">
+          <div className="relative z-10 flex flex-col flex-1">{children}</div>
+        </MotionConfig>
       </body>
     </html>
   );

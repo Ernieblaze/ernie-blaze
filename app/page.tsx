@@ -4,6 +4,7 @@ import TrustStrip from "@/components/TrustStrip";
 import About from "@/components/About";
 import WhatITeach from "@/components/WhatITeach";
 import InsideMyWorld from "@/components/InsideMyWorld";
+import WatchLatest from "@/components/WatchLatest";
 import SocialLinks from "@/components/SocialLinks";
 import Support from "@/components/Support";
 import Checklist from "@/components/Checklist";
@@ -21,6 +22,7 @@ export default function Home() {
         <About />
         <WhatITeach />
         <InsideMyWorld />
+        <WatchLatest />
         <SocialLinks />
         <Support />
         <Checklist />
