@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type ButtonProps = {
   href: string;
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "dark";
   className?: string;
+  showArrow?: boolean;
 };
 
 export default function Button({
@@ -12,18 +14,29 @@ export default function Button({
   children,
   variant = "primary",
   className = "",
+  showArrow = true,
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-7 py-3.5 font-medium transition-all duration-300 text-sm sm:text-base";
+    "group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-medium transition-all duration-300 text-sm sm:text-base hover:scale-[1.03] active:scale-[0.98]";
 
   const variants = {
     primary:
-      "bg-accent text-[#0E0E12] hover:shadow-[0_0_30px_rgba(255,107,53,0.6)] hover:-translate-y-0.5",
+      "bg-emerald text-white shadow-[0_8px_24px_-8px_rgba(16,185,129,0.55)] hover:bg-emerald-deep hover:shadow-[0_12px_32px_-8px_rgba(16,185,129,0.65)]",
     secondary:
-      "border border-white/20 text-white hover:border-accent hover:text-accent hover:shadow-[0_0_20px_rgba(255,107,53,0.25)] hover:-translate-y-0.5",
+      "border border-ink/15 text-ink bg-white/60 hover:border-emerald hover:text-emerald-deep",
+    dark:
+      "border border-white/15 text-white bg-white/5 hover:border-emerald hover:text-emerald",
   };
 
   const isExternal = href.startsWith("http");
+  const content = (
+    <>
+      {children}
+      {showArrow && (
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      )}
+    </>
+  );
 
   if (isExternal) {
     return (
@@ -33,14 +46,14 @@ export default function Button({
         rel="noopener noreferrer"
         className={`${base} ${variants[variant]} ${className}`}
       >
-        {children}
+        {content}
       </a>
     );
   }
 
   return (
     <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
-      {children}
+      {content}
     </Link>
   );
 }

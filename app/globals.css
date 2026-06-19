@@ -1,44 +1,114 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e0e12;
-  --foreground: #f5f5f5;
-  --accent: #ff6b35;
+  --paper: #fafafc;
+  --ink: #16131f;
+  --emerald: #10b981;
+  --emerald-deep: #059669;
+  --dark: #0e1117;
+  --mist: #eef0fb;
+  --mint: #eafff5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-emerald: var(--emerald);
+  --color-emerald-deep: var(--emerald-deep);
+  --color-dark: var(--dark);
+  --color-mist: var(--mist);
+  --color-mint: var(--mint);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--paper);
+  color: var(--ink);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(16, 185, 129, 0.07), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(124, 134, 247, 0.08), transparent 60%);
+  background-attachment: fixed;
 }
 
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal {
-  opacity: 0;
-}
-
-.reveal.is-visible {
-  animation: fade-in-up 0.7s ease-out forwards;
+/* Subtle grain overlay, fixed over the whole page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 ::selection {
-  background: var(--accent);
-  color: #0e0e12;
+  background: var(--emerald);
+  color: var(--paper);
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes blob-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-20px, 25px) scale(0.95);
+  }
+}
+
+.animate-blob {
+  animation: blob-drift 18s ease-in-out infinite;
+}
+
+.blaze-text {
+  background-image: linear-gradient(100deg, var(--emerald) 10%, #ff7a1a 90%);
+  animation: blaze-glow 3.6s ease-in-out infinite;
+}
+
+@keyframes blaze-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255, 122, 26, 0.15));
+  }
+  50% {
+    filter: drop-shadow(0 0 7px rgba(255, 122, 26, 0.45));
+  }
+}
+
+.ember-spark {
+  animation: ember-drift 3.2s ease-in-out infinite;
+}
+
+@keyframes ember-drift {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translate(0, 0) scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(2px, -4px) scale(1.1);
+  }
 }
