@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
+import Tilt from "./Tilt";
 
 type VideoCardProps = {
   videoId: string;
@@ -38,24 +39,26 @@ export default function VideoCard({
   }
 
   return (
-    <button
-      type="button"
-      onClick={() => setPlaying(true)}
-      aria-label="Play video"
-      className={`group ${frame} transition-all duration-300 ${hoverLift ? "hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(16,185,129,0.3)]" : ""}`}
-    >
-      <Image
-        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-        alt="Video thumbnail"
-        fill
-        sizes="(max-width: 768px) 100vw, 33vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 flex items-center justify-center bg-ink/20 transition-colors group-hover:bg-ink/30">
-        <span className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/90 text-emerald-deep shadow-lg transition-transform group-hover:scale-110">
-          <Play className="h-5 w-5 sm:h-6 sm:w-6 fill-current" />
-        </span>
-      </div>
-    </button>
+    <Tilt max={5} lift={hoverLift ? -4 : 0}>
+      <button
+        type="button"
+        onClick={() => setPlaying(true)}
+        aria-label="Play video"
+        className={`group ${frame} transition-shadow duration-300 ${hoverLift ? "hover:shadow-[0_20px_40px_-16px_rgba(16,185,129,0.3)]" : ""}`}
+      >
+        <Image
+          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          alt="Video thumbnail"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-ink/20 transition-colors group-hover:bg-ink/30">
+          <span className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/90 text-emerald-deep shadow-lg transition-transform group-hover:scale-110">
+            <Play className="h-5 w-5 sm:h-6 sm:w-6 fill-current" />
+          </span>
+        </div>
+      </button>
+    </Tilt>
   );
 }

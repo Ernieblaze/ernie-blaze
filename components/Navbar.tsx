@@ -26,8 +26,8 @@ export default function Navbar() {
       <div
         className={`flex w-full max-w-5xl items-center justify-between rounded-full border transition-all duration-300 ${
           scrolled
-            ? "border-ink/10 bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_-12px_rgba(22,19,31,0.15)] px-5 py-2.5"
-            : "border-transparent bg-white/40 backdrop-blur-md px-6 py-3.5"
+            ? "border-ink/10 bg-white/70 backdrop-blur-2xl ring-1 ring-inset ring-white/40 shadow-[0_8px_30px_-12px_rgba(22,19,31,0.15)] px-5 py-2.5"
+            : "border-transparent bg-white/30 backdrop-blur-md px-6 py-3.5"
         }`}
       >
         <a href="#home">

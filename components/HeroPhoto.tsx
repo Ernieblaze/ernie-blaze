@@ -1,12 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const bottomFadeMask = "linear-gradient(to bottom, #000 80%, transparent 100%)";
 
 export default function HeroPhoto({ src, alt }: { src: string; alt: string }) {
   const [errored, setErrored] = useState(false);
+
+  useEffect(() => {
+    fetch(src, { method: "HEAD" })
+      .then((res) => {
+        const size = Number(res.headers.get("content-length") || 0);
+        if (size > 500_000) {
+          console.warn(
+            `[Ernie Blaze] Hero image (${src}) is ${(size / 1024 / 1024).toFixed(1)}MB — compress it (e.g. with squoosh.app or TinyPNG) for a faster first paint.`
+          );
+        }
+      })
+      .catch(() => {});
+  }, [src]);
 
   return (
     <div className="relative aspect-[4/5] w-full">

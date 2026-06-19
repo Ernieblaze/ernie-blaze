@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { isPlaceholder } from "@/lib/links";
+import { useHasFinePointer } from "@/lib/motion";
 
 type ButtonProps = {
   href: string;
@@ -9,6 +13,9 @@ type ButtonProps = {
   className?: string;
   showArrow?: boolean;
 };
+
+const MotionLink = motion.create(Link);
+const MotionA = motion.create("a");
 
 export default function Button({
   href,
@@ -28,6 +35,26 @@ export default function Button({
     dark:
       "border border-white/15 text-white bg-white/5 hover:border-emerald hover:text-emerald",
   };
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 250, damping: 18 });
+  const sy = useSpring(y, { stiffness: 250, damping: 18 });
+  const reduceMotion = useReducedMotion();
+  const hasFinePointer = useHasFinePointer();
+  const magnetic = variant === "primary" && hasFinePointer && !reduceMotion;
+
+  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    if (!magnetic) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left - rect.width / 2) * 0.3);
+    y.set((e.clientY - rect.top - rect.height / 2) * 0.3);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
 
   const content = (
     <>
@@ -53,24 +80,29 @@ export default function Button({
     );
   }
 
+  const motionProps = magnetic
+    ? { style: { x: sx, y: sy }, onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }
+    : {};
+
   const isExternal = href.startsWith("http");
 
   if (isExternal) {
     return (
-      <a
+      <MotionA
         href={href}
         target="_blank"
         rel="noopener noreferrer"
         className={`${base} ${variants[variant]} ${className}`}
+        {...motionProps}
       >
         {content}
-      </a>
+      </MotionA>
     );
   }
 
   return (
-    <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
+    <MotionLink href={href} className={`${base} ${variants[variant]} ${className}`} {...motionProps}>
       {content}
-    </Link>
+    </MotionLink>
   );
 }
